@@ -8,7 +8,6 @@ variable "resource_group" {
 
 provider "ibm" {
   generation = 2
-  # -1- generation = 1
   region = "eu-gb"
 }
 
@@ -65,7 +64,6 @@ resource ibm_is_instance "vm1" {
   zone    = local.ZONE
   keys    = [data.ibm_is_ssh_key.ssh_key_id.id]
   image   = data.ibm_is_image.debian.id
-  # -1- profile = "cc1-2x4"
   profile = "bx2-2x8"
 
   primary_network_interface {
@@ -81,7 +79,6 @@ resource ibm_is_instance "vm2" {
   zone    = local.ZONE
   keys    = [data.ibm_is_ssh_key.ssh_key_id.id]
   image   = data.ibm_is_image.debian.id
-  # -1- profile = "cc1-2x4"
   profile = "bx2-2x8"
 
   primary_network_interface {
@@ -97,7 +94,6 @@ resource ibm_is_instance "vm3" {
   zone    = local.ZONE
   keys    = [data.ibm_is_ssh_key.ssh_key_id.id]
   image   = data.ibm_is_image.debian.id
-  # -1- profile = "cc1-2x4"
   profile = "bx2-2x8"
 
   primary_network_interface {
@@ -114,13 +110,13 @@ resource ibm_is_floating_ip "fip1" {
 
 resource ibm_is_floating_ip "fip2" {
   name   = "${local.BASENAME}-fip2"
-  target = ibm_is_instance.vm2.primary_network_interface.1.id
+  target = ibm_is_instance.vm2.primary_network_interface.0.id
 }
 
 
 resource ibm_is_floating_ip "fip3" {
   name   = "${local.BASENAME}-fip3"
-  target = ibm_is_instance.vm2.primary_network_interface.2.id
+  target = ibm_is_instance.vm3.primary_network_interface.0.id
 }
 
 output sshcommand1 {
