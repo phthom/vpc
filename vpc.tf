@@ -100,11 +100,11 @@ resource ibm_is_floating_ip "fip2" {
   target = ibm_is_instance.vm2.primary_network_interface.0.id
 }
 
-output sshcommand {
+output sshcommand1 {
   value = "ssh root@ibm_is_floating_ip.fip1.address"
 }
 
-output sshcommand {
+output sshcommand2 {
   value = "ssh root@ibm_is_floating_ip.fip2.address"
 }
 
