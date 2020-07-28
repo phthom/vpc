@@ -8,12 +8,12 @@ variable "resource_group" {
 
 provider "ibm" {
   generation = 1
-  region = "us-south"
+  region = "london"
 }
 
 locals {
   BASENAME = "schematics" 
-  ZONE     = "us-south-1"
+  ZONE     = "eu-gb-1"
 }
 
 resource ibm_is_vpc "vpc" {
