@@ -13,7 +13,7 @@ provider "ibm" {
 }
 
 locals {
-  BASENAME = "schematics" 
+  BASENAME = "lastmile" 
   ZONE     = "eu-gb-1"
 }
 
@@ -102,6 +102,10 @@ resource ibm_is_floating_ip "fip2" {
 
 output sshcommand {
   value = "ssh root@ibm_is_floating_ip.fip1.address"
+}
+
+output sshcommand {
+  value = "ssh root@ibm_is_floating_ip.fip2.address"
 }
 
 output vpc_id {
