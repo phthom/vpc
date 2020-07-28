@@ -114,21 +114,12 @@ resource ibm_is_floating_ip "fip2" {
 }
 
 
-resource ibm_is_floating_ip "fip3" {
-  name   = "${local.BASENAME}-fip3"
-  target = ibm_is_instance.vm3.primary_network_interface.0.id
-}
-
 output sshcommand1 {
   value = "ssh root@ibm_is_floating_ip.fip1.address"
 }
 
 output sshcommand2 {
   value = "ssh root@ibm_is_floating_ip.fip2.address"
-}
-
-output sshcommand3 {
-  value = "ssh root@ibm_is_floating_ip.fip3.address"
 }
 
 output vpc_id {
