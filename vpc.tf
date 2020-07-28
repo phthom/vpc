@@ -45,7 +45,7 @@ resource ibm_is_subnet "subnet1" {
   total_ipv4_address_count = 256
 }
 
-data ibm_is_image "ubuntu" {
+data ibm_is_image "debian" {
   # -1- name = "ubuntu-18.04-amd64"
   name = "ibm-debian-9-9-minimal-amd64-2"
 }
@@ -58,13 +58,29 @@ data ibm_resource_group "group" {
   name = var.resource_group
 }
 
-resource ibm_is_instance "vsi1" {
-  name    = "${local.BASENAME}-vsi1"
+resource ibm_is_instance "vm1" {
+  name    = "${local.BASENAME}-vm1"
   resource_group = data.ibm_resource_group.group.id
   vpc     = ibm_is_vpc.vpc.id
   zone    = local.ZONE
   keys    = [data.ibm_is_ssh_key.ssh_key_id.id]
-  image   = data.ibm_is_image.ubuntu.id
+  image   = data.ibm_is_image.debian.id
+  # -1- profile = "cc1-2x4"
+  profile = "bx2-2x8"
+
+  primary_network_interface {
+    subnet          = ibm_is_subnet.subnet1.id
+    security_groups = [ibm_is_security_group.sg1.id]
+  }
+}
+
+resource ibm_is_instance "vm2" {
+  name    = "${local.BASENAME}-vm2"
+  resource_group = data.ibm_resource_group.group.id
+  vpc     = ibm_is_vpc.vpc.id
+  zone    = local.ZONE
+  keys    = [data.ibm_is_ssh_key.ssh_key_id.id]
+  image   = data.ibm_is_image.debian.id
   # -1- profile = "cc1-2x4"
   profile = "bx2-2x8"
 
@@ -76,7 +92,12 @@ resource ibm_is_instance "vsi1" {
 
 resource ibm_is_floating_ip "fip1" {
   name   = "${local.BASENAME}-fip1"
-  target = ibm_is_instance.vsi1.primary_network_interface.0.id
+  target = ibm_is_instance.vm1.primary_network_interface.0.id
+}
+
+resource ibm_is_floating_ip "fip2" {
+  name   = "${local.BASENAME}-fip2"
+  target = ibm_is_instance.vm2.primary_network_interface.0.id
 }
 
 output sshcommand {
