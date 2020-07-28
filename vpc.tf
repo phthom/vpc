@@ -49,7 +49,7 @@ data ibm_is_image "ubuntu" {
 }
 
 data ibm_is_ssh_key "ssh_key_id" {
-  name = "mysshkey"
+  name = var.ssh_key
 }
 
 data ibm_resource_group "group" {
