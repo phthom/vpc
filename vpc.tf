@@ -8,6 +8,7 @@ variable "resource_group" {
 
 provider "ibm" {
   generation = 2
+  # -1- generation = 1
   region = "eu-gb"
 }
 
@@ -45,7 +46,8 @@ resource ibm_is_subnet "subnet1" {
 }
 
 data ibm_is_image "ubuntu" {
-  name = "ubuntu-18.04-amd64"
+  # -1- name = "ubuntu-18.04-amd64"
+  name = "ibm-debian-9-9-minimal-amd64-2"
 }
 
 data ibm_is_ssh_key "ssh_key_id" {
@@ -63,7 +65,8 @@ resource ibm_is_instance "vsi1" {
   zone    = local.ZONE
   keys    = [data.ibm_is_ssh_key.ssh_key_id.id]
   image   = data.ibm_is_image.ubuntu.id
-  profile = "cc1-2x4"
+  # -1- profile = "cc1-2x4"
+  profile = "bx2-2x8"
 
   primary_network_interface {
     subnet          = ibm_is_subnet.subnet1.id
