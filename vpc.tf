@@ -114,13 +114,13 @@ resource ibm_is_floating_ip "fip1" {
 
 resource ibm_is_floating_ip "fip2" {
   name   = "${local.BASENAME}-fip2"
-  target = ibm_is_instance.vm2.primary_network_interface.0.id
+  target = ibm_is_instance.vm2.primary_network_interface.1.id
 }
 
 
 resource ibm_is_floating_ip "fip3" {
   name   = "${local.BASENAME}-fip3"
-  target = ibm_is_instance.vm2.primary_network_interface.0.id
+  target = ibm_is_instance.vm2.primary_network_interface.2.id
 }
 
 output sshcommand1 {
