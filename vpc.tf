@@ -8,7 +8,7 @@ variable "resource_group" {
 
 provider "ibm" {
   generation = 1
-  region = "london"
+  region = "eu-gb"
 }
 
 locals {
