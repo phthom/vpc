@@ -1,9 +1,9 @@
 variable "ssh_key" {
-  type = "string"
+  type = string
 }
 
 variable "resource_group" {
-  type = "string"
+  type = string
 }
 
 provider "ibm" {
@@ -40,7 +40,7 @@ resource "ibm_is_security_group_rule" "ingress_ssh_all" {
 resource ibm_is_subnet "subnet1" {
   name = "${local.BASENAME}-subnet1"
   vpc  = ibm_is_vpc.vpc.id
-  zone = "${local.ZONE}"
+  zone = local.ZONE
   total_ipv4_address_count = 256
 }
 
@@ -60,7 +60,7 @@ resource ibm_is_instance "vsi1" {
   name    = "${local.BASENAME}-vsi1"
   resource_group = "${data.ibm_resource_group.group.id}"
   vpc     = ibm_is_vpc.vpc.id
-  zone    = "${local.ZONE}"
+  zone    = local.ZONE
   keys    = [data.ibm_is_ssh_key.ssh_key_id.id]
   image   = data.ibm_is_image.ubuntu.id
   profile = "cc1-2x4"
